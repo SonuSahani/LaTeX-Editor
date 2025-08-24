@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ Easy LaTeX Editor</title>
+    <!-- MathJax for rendering equations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+    <!-- html2canvas for screenshot -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- jsPDF for PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- Link to external CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✨ Easy LaTeX Editor</h1>
+            <p>Create beautiful documents without coding knowledge!</p>
+        </div>
+
+        <div class="quick-insert">
+            <button class="quick-insert-btn" onclick="insertTemplate('article')">📄 Article</button>
+            <button class="quick-insert-btn" onclick="insertTemplate('letter')">✉️ Letter</button>
+            <button class="quick-insert-btn" onclick="insertTemplate('resume')">📋 Resume</button>
+            <button class="quick-insert-btn" onclick="insertTemplate('report')">📊 Report</button>
+            <button class="quick-insert-btn" onclick="insertTemplate('math')">🧮 Math</button>
+            <button class="quick-insert-btn" onclick="insertTemplate('presentation')">🎯 Slides</button>
+        </div>
+
+        <div class="editor-container">
+            <div class="editor-panel">
+                <div class="toolbar">
+                    <div class="toolbar-group">
+                        <button class="btn" onclick="insertText('\\textbf{', '}')">Bold</button>
+                        <button class="btn" onclick="insertText('\\textit{', '}')">Italic</button>
+                        <button class="btn" onclick="insertText('\\underline{', '}')">Underline</button>
+                    </div>
+                    <div class="toolbar-group">
+                        <button class="btn" onclick="insertText('\\section{', '}')">Section</button>
+                        <button class="btn" onclick="insertText('\\subsection{', '}')">Subsection</button>
+                        <button class="btn" onclick="insertText('\\paragraph{', '}')">Paragraph</button>
+                    </div>
+                    <div class="toolbar-group">
+                        <button class="btn" onclick="insertList('itemize')">• List</button>
+                        <button class="btn" onclick="insertList('enumerate')">1. List</button>
+                        <button class="btn" onclick="insertTable()">📊 Table</button>
+                    </div>
+                    <div class="toolbar-group">
+                        <button class="btn" onclick="insertMath('inline')">Math</button>
+                        <button class="btn" onclick="insertMath('block')">Math Block</button>
+                        <button class="btn" onclick="insertText('\\frac{', '}{}')">Fraction</button>
+                    </div>
+                    <div class="toolbar-group">
+                        <button class="btn" onclick="undo()">Undo</button>
+                        <button class="btn" onclick="redo()">Redo</button>
+                        <button class="btn" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+                        <button class="btn" onclick="zoomIn()">Zoom +</button>
+                        <button class="btn" onclick="zoomOut()">Zoom -</button>
+                    </div>
+                </div>
+                <textarea 
+                    class="text-area" 
+                    id="latexEditor" 
+                    placeholder="Start typing your document here... Use the buttons above to add formatting!"
+                    oninput="handleInput()"
+                    spellcheck="true"
+                ></textarea>
+            </div>
+
+            <div class="preview-panel">
+                <div class="preview-header">
+                    📖 Live Preview
+                </div>
+                <div class="preview-content" id="preview">
+                    <div class="math-preview">
+                        <p>Your document preview will appear here...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="help-panel">
+            <h3>💡 Quick Tips:</h3>
+            <ul>
+                <li>• Use the buttons above to add formatting without typing LaTeX code</li>
+                <li>• Choose from templates to get started quickly</li>
+                <li>• Your document updates in real-time in the preview panel</li>
+                <li>• Click "Export LaTeX" to get your final code</li>
+                <li>• Auto-save enabled: Your work is saved locally</li>
+                <li>• Use Undo/Redo buttons or Ctrl+Z/Y</li>
+                <li>• Toggle Dark Mode for better viewing</li>
+                <li>• Adjust zoom with + / - buttons</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="export-menu">
+        <button class="export-btn" onclick="toggleExportMenu()">
+            📥 Export
+            <span id="dropdownArrow">▼</span>
+        </button>
+        <div class="export-dropdown" id="exportDropdown">
+            <div class="export-option" onclick="exportPDF()">
+                <span class="export-icon">📄</span>
+                <div>
+                    <strong>PDF Document</strong><br>
+                    <small>Ready to print and share</small>
+                </div>
+            </div>
+            <div class="export-option" onclick="exportLatex()">
+                <span class="export-icon">📝</span>
+                <div>
+                    <strong>LaTeX File (.tex)</strong><br>
+                    <small>Source code for LaTeX editors</small>
+                </div>
+            </div>
+            <div class="export-option" onclick="exportTxt()">
+                <span class="export-icon">📋</span>
+                <div>
+                    <strong>Plain Text (.txt)</strong><br>
+                    <small>Simple text format</small>
+                </div>
+            </div>
+            <div class="export-option" onclick="exportImage()">
+                <span class="export-icon">🖼️</span>
+                <div>
+                    <strong>Image (.png)</strong><br>
+                    <small>Visual snapshot of document</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Link to external JS -->
+    <script src="script.js"></script>
+</body>
+</html>
